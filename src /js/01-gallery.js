@@ -9,7 +9,6 @@ galleryElem.addEventListener("click", onGalleryElemClick);
 function onGalleryElemClick(e) {
   e.preventDefault();
   if (e.target === e.currentTarget) return;
-  console.log(e);
 
   const imageSrc = e.target.dataset.source;
   const imageAlt = e.target.alt;
