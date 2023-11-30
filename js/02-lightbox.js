@@ -1,15 +1,6 @@
 import { galleryItems } from "./gallery-items.js";
 
-console.log(galleryItems);
-
 const galleryElem = document.querySelector(".gallery");
-
-galleryElem.addEventListener("click", onGalleryElemClick);
-
-function onGalleryElemClick(e) {
-  e.preventDefault();
-  if (e.target === e.currentTarget) return;
-}
 
 renderGallery();
 
@@ -31,5 +22,12 @@ function renderGallery() {
   galleryElem.innerHTML = galleryMarkup;
 
   // SimpleLightbox
-  const lightbox = new SimpleLightbox(".gallery a", {});
+  new SimpleLightbox(".gallery a", {
+    captions: true,
+    captionSelector: "img",
+    captionType: "attr",
+    captionsData: "alt",
+    captionPosition: "bottom",
+    captionDelay: 250,
+  });
 }
