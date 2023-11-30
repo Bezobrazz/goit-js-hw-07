@@ -1,7 +1,5 @@
 import { galleryItems } from "./gallery-items.js";
 
-console.log(galleryItems);
-
 const galleryElem = document.querySelector(".gallery");
 
 galleryElem.addEventListener("click", onGalleryElemClick);
@@ -13,18 +11,26 @@ function onGalleryElemClick(e) {
   const imageSrc = e.target.dataset.source;
   const imageAlt = e.target.alt;
 
-  const instance = basicLightbox.create(`
+  const instance = basicLightbox.create(
+    `
     <img width="800" height="600" src="${imageSrc}" alt="${imageAlt}">
-  `);
+  `,
+    {
+      onShow: (instance) => {
+        window.addEventListener("keydown", onEscapePress);
+      },
+      onClose: (instance) => {
+        window.removeEventListener("keydown", onEscapePress);
+      },
+    }
+  );
 
   instance.show();
-
-  window.addEventListener("keydown", onEscapePress);
 
   function onEscapePress(e) {
     if (e.key === "Escape") {
       instance.close();
-      window.removeEventListener("keydown", onEscapePress);
+      return;
     }
   }
 }
